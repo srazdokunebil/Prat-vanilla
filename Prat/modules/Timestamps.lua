@@ -438,14 +438,22 @@ function Prat_Timestamps:AddMessage(id, frame, text, ...)
 		-- get timestamp format
         local dateFormat
        	dateFormat = self.db.profile.format[id]
+        --vr.log.Warn("format:"..tostring(dateFormat))
+local mytime = tostring(vr.api.TimeHours()) .. tostring(":")
+.. vr.api.TimeMinutes() .. tostring(":")
+.. vr.api.TimeSeconds() .. tostring(":")
+.. vr.api.TimeMilliseconds()
+
        	-- get space character useage
         if ( self.db.profile.space ) then space = " " else space = "" end
         -- get color format
         if self.db.profile.colortimestamp then
             local color = string.format("%02x%02x%02x", self.db.profile.color.r*255, self.db.profile.color.g*255, self.db.profile.color.b*255)
-            text = string.format("|cff"..color.."%s|r" .. space .. "%s", self:GetTime(dateFormat), text)
+            --text = string.format("|cff"..color.."%s|r" .. space .. "%s", self:GetTime(dateFormat), text)
+            text = string.format("|cff"..color.."%s|r" .. space .. "%s", mytime, text)
         else
-            text = string.format("%s".. space .. "%s", self:GetTime(dateFormat), text)
+            --text = string.format("%s".. space .. "%s", self:GetTime(dateFormat), text)
+            text = string.format("%s".. space .. "%s", mytime, text)
         end
     end
     self.hooks[frame].AddMessage(frame, text, unpack(arg))
